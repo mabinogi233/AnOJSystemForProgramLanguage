@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beginerprogrammer.programmer.dao.problemXMapper">
+  <resultMap id="BaseResultMap" type="com.beginerprogrammer.programmer.entity.problemX">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="classify" jdbcType="VARCHAR" property="classify" />
+    <result column="trueAnswer" jdbcType="VARCHAR" property="trueanswer" />
+    <result column="answerD" jdbcType="VARCHAR" property="answerd" />
+    <result column="answerC" jdbcType="VARCHAR" property="answerc" />
+    <result column="answerB" jdbcType="VARCHAR" property="answerb" />
+    <result column="answerA" jdbcType="VARCHAR" property="answera" />
+    <result column="languageName" jdbcType="VARCHAR" property="languagename" />
+    <result column="problemName" jdbcType="VARCHAR" property="problemname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, classify, trueAnswer, answerD, answerC, answerB, answerA, languageName, problemName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from problemhome
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from problemhome
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.beginerprogrammer.programmer.entity.problemX">
+    insert into problemhome (id, classify, trueAnswer, 
+      answerD, answerC, answerB, 
+      answerA, languageName, problemName
+      )
+    values (#{id,jdbcType=INTEGER}, #{classify,jdbcType=VARCHAR}, #{trueanswer,jdbcType=VARCHAR}, 
+      #{answerd,jdbcType=VARCHAR}, #{answerc,jdbcType=VARCHAR}, #{answerb,jdbcType=VARCHAR}, 
+      #{answera,jdbcType=VARCHAR}, #{languagename,jdbcType=VARCHAR}, #{problemname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.beginerprogrammer.programmer.entity.problemX">
+    insert into problemhome
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="classify != null">
+        classify,
+      </if>
+      <if test="trueanswer != null">
+        trueAnswer,
+      </if>
+      <if test="answerd != null">
+        answerD,
+      </if>
+      <if test="answerc != null">
+        answerC,
+      </if>
+      <if test="answerb != null">
+        answerB,
+      </if>
+      <if test="answera != null">
+        answerA,
+      </if>
+      <if test="languagename != null">
+        languageName,
+      </if>
+      <if test="problemname != null">
+        problemName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="classify != null">
+        #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="trueanswer != null">
+        #{trueanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="answerd != null">
+        #{answerd,jdbcType=VARCHAR},
+      </if>
+      <if test="answerc != null">
+        #{answerc,jdbcType=VARCHAR},
+      </if>
+      <if test="answerb != null">
+        #{answerb,jdbcType=VARCHAR},
+      </if>
+      <if test="answera != null">
+        #{answera,jdbcType=VARCHAR},
+      </if>
+      <if test="languagename != null">
+        #{languagename,jdbcType=VARCHAR},
+      </if>
+      <if test="problemname != null">
+        #{problemname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beginerprogrammer.programmer.entity.problemX">
+    update problemhome
+    <set>
+      <if test="classify != null">
+        classify = #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="trueanswer != null">
+        trueAnswer = #{trueanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="answerd != null">
+        answerD = #{answerd,jdbcType=VARCHAR},
+      </if>
+      <if test="answerc != null">
+        answerC = #{answerc,jdbcType=VARCHAR},
+      </if>
+      <if test="answerb != null">
+        answerB = #{answerb,jdbcType=VARCHAR},
+      </if>
+      <if test="answera != null">
+        answerA = #{answera,jdbcType=VARCHAR},
+      </if>
+      <if test="languagename != null">
+        languageName = #{languagename,jdbcType=VARCHAR},
+      </if>
+      <if test="problemname != null">
+        problemName = #{problemname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beginerprogrammer.programmer.entity.problemX">
+    update problemhome
+    set classify = #{classify,jdbcType=VARCHAR},
+      trueAnswer = #{trueanswer,jdbcType=VARCHAR},
+      answerD = #{answerd,jdbcType=VARCHAR},
+      answerC = #{answerc,jdbcType=VARCHAR},
+      answerB = #{answerb,jdbcType=VARCHAR},
+      answerA = #{answera,jdbcType=VARCHAR},
+      languageName = #{languagename,jdbcType=VARCHAR},
+      problemName = #{problemname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getByLanguageAndClassify" resultType="java.lang.Integer">
+    select id from problemhome where
+    languageName = #{languageName,jdbcType=VARCHAR} and
+    classify = #{classify,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="getAllID" resultType="java.lang.Integer">
+    select id from problemhome
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from problemhome
+  </select>
+
+</mapper>

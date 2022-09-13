@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beginerprogrammer.programmer.dao.userMapper">
+  <resultMap id="BaseResultMap" type="com.beginerprogrammer.programmer.entity.user">
+    <id column="phoneNumber" jdbcType="INTEGER" property="phonenumber" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    phoneNumber, password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users
+    where phoneNumber = #{phonenumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from users
+    where phoneNumber = #{phonenumber,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.beginerprogrammer.programmer.entity.user">
+    insert into users (phoneNumber, password)
+    values (#{phonenumber,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.beginerprogrammer.programmer.entity.user">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phonenumber != null">
+        phoneNumber,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beginerprogrammer.programmer.entity.user">
+    update users
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where phoneNumber = #{phonenumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beginerprogrammer.programmer.entity.user">
+    update users
+    set password = #{password,jdbcType=VARCHAR}
+    where phoneNumber = #{phonenumber,jdbcType=INTEGER}
+  </update>
+
+
+
+
+</mapper>

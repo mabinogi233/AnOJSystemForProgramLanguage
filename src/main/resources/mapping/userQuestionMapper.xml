@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beginerprogrammer.programmer.dao.userQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.beginerprogrammer.programmer.entity.userQuestion">
+    <id column="userID" jdbcType="INTEGER" property="userid" />
+    <id column="questionID" jdbcType="INTEGER" property="questionid" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from question_user
+    where userID = #{userid,jdbcType=INTEGER}
+      and questionID = #{questionid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.beginerprogrammer.programmer.entity.userQuestion">
+    insert into question_user (userID, questionID)
+    values (#{userid,jdbcType=INTEGER}, #{questionid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.beginerprogrammer.programmer.entity.userQuestion">
+    insert into question_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="questionid != null">
+        questionID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="questionid != null">
+        #{questionid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select * from question_user
+    where userID = #{userid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from question_user
+  </select>
+
+</mapper>

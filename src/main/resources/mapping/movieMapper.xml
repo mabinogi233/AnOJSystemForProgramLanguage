@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beginerprogrammer.programmer.dao.movieMapper">
+  <resultMap id="BaseResultMap" type="com.beginerprogrammer.programmer.entity.movie">
+    <id column="movieNumber" jdbcType="INTEGER" property="movienumber" />
+    <result column="chapter" jdbcType="VARCHAR" property="chapter" />
+    <result column="classify" jdbcType="VARCHAR" property="classify" />
+    <result column="languageName" jdbcType="VARCHAR" property="languagename" />
+    <result column="movieURL" jdbcType="VARCHAR" property="movieurl" />
+    <result column="packageName" jdbcType="VARCHAR" property="packagename" />
+    <result column="movieName" jdbcType="VARCHAR" property="moviename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    movieNumber, chapter, classify, languageName, movieURL, packageName, movieName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from movie
+    where movieNumber = #{movienumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from movie
+    where movieNumber = #{movienumber,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.beginerprogrammer.programmer.entity.movie">
+    insert into movie (movieNumber, chapter, classify, 
+      languageName, movieURL, packageName, 
+      movieName)
+    values (#{movienumber,jdbcType=INTEGER}, #{chapter,jdbcType=VARCHAR}, #{classify,jdbcType=VARCHAR}, 
+      #{languagename,jdbcType=VARCHAR}, #{movieurl,jdbcType=VARCHAR}, #{packagename,jdbcType=VARCHAR}, 
+      #{moviename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.beginerprogrammer.programmer.entity.movie">
+    insert into movie
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="movienumber != null">
+        movieNumber,
+      </if>
+      <if test="chapter != null">
+        chapter,
+      </if>
+      <if test="classify != null">
+        classify,
+      </if>
+      <if test="languagename != null">
+        languageName,
+      </if>
+      <if test="movieurl != null">
+        movieURL,
+      </if>
+      <if test="packagename != null">
+        packageName,
+      </if>
+      <if test="moviename != null">
+        movieName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="movienumber != null">
+        #{movienumber,jdbcType=INTEGER},
+      </if>
+      <if test="chapter != null">
+        #{chapter,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null">
+        #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="languagename != null">
+        #{languagename,jdbcType=VARCHAR},
+      </if>
+      <if test="movieurl != null">
+        #{movieurl,jdbcType=VARCHAR},
+      </if>
+      <if test="packagename != null">
+        #{packagename,jdbcType=VARCHAR},
+      </if>
+      <if test="moviename != null">
+        #{moviename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beginerprogrammer.programmer.entity.movie">
+    update movie
+    <set>
+      <if test="chapter != null">
+        chapter = #{chapter,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null">
+        classify = #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="languagename != null">
+        languageName = #{languagename,jdbcType=VARCHAR},
+      </if>
+      <if test="movieurl != null">
+        movieURL = #{movieurl,jdbcType=VARCHAR},
+      </if>
+      <if test="packagename != null">
+        packageName = #{packagename,jdbcType=VARCHAR},
+      </if>
+      <if test="moviename != null">
+        movieName = #{moviename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where movieNumber = #{movienumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beginerprogrammer.programmer.entity.movie">
+    update movie
+    set chapter = #{chapter,jdbcType=VARCHAR},
+      classify = #{classify,jdbcType=VARCHAR},
+      languageName = #{languagename,jdbcType=VARCHAR},
+      movieURL = #{movieurl,jdbcType=VARCHAR},
+      packageName = #{packagename,jdbcType=VARCHAR},
+      movieName = #{moviename,jdbcType=VARCHAR}
+    where movieNumber = #{movienumber,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectALLPackageName" resultType="java.lang.String">
+    select distinct packageName from movie
+  </select>
+
+  <select id="selectByPackageName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from movie where
+    packageName = #{packageName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from movie
+  </select>
+
+</mapper>
